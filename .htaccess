@@ -1,0 +1,5 @@
+# Habilita el módulo de reescritura
+RewriteEngine On
+
+# Permite el acceso a todos los archivos sin restricciones
+Options +Indexes

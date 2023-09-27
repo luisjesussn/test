@@ -1,0 +1,44 @@
+version: '3.3'
+services:
+  web:
+    build: .
+    restart: unless-stopped
+    environment:
+      VIRTUAL_HOST: "${HOST}"
+    volumes:
+      - ./conf.d/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
+      - ./app:/var/www/html
+    depends_on:
+      - db
+      - proxy
+  adminer:
+    image: adminer:latest
+    restart: unless-stopped
+    depends_on:
+      - db
+      - proxy
+    environment:
+      VIRTUAL_HOST: "db.${HOST}"
+    volumes:
+      - ./conf.d/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
+  db:
+    image: mariadb:latest
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: "${DB_NAME}"
+      MYSQL_USER: "${DB_USER}"
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+    volumes:
+      - ./conf.d/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+  proxy:
+    image: jwilder/nginx-proxy:latest
+    restart: unless-stopped
+    restart: unless-stopped
+    ports:
+      - 80:80
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./conf.d/nginx/extended_timeout.conf:/etc/nginx/conf.d/extended_timeout.conf:ro
+      - ./conf.d/nginx/max_body_size.conf:/etc/nginx/conf.d/max_body_size.conf:ro

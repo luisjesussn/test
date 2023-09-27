@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulario de Registro</title>
+    <script src="./assets/script.js"></script>
+    <link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+    
+    <custom-form>
+        <h1>Formulario de Registro</h1>
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="name">Nombre y Apellido:</label>
+                <input type="text" id="name" name="name" required><br><br>
+            </div>
+            <div class="form-group">
+                <label for="alias">Alias: *</label>
+                <input type="text" id="alias" name="alias" pattern="^(?=.*[a-zA-Z])(?=.*\d).{6,}$">
+                <span>Alias (Debe contener al menos 6 caracteres, incluyendo letras y n&uacute;meros):</span>
+            </div>
+            <br><br>
+            <div class="form-group">
+                <label for="rut">RUT: *</label>
+                <input type="text" id="rut" name="rut" pattern="\d{7,8}-[0-9kK]" required>
+                <span>Ingrese un RUT v&aacute;lido en el formato 12345678-9.</span>
+            </div>
+            <br><br>
+            <div class="form-group">
+                <label for="email">Email: *</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <br><br>
+            <div class="form-group">
+                <label for="state">Regi&oacute;n: *</label>
+                <select name="state" id="state" required></select>
+            </div>
+            <br><br>
+
+            <div class="form-group">
+                <label for="province">Comuna:</label>
+                <select name="province" id="province" required></select>
+            </div>
+            <br><br>
+
+            <div class="form-group">
+                <label for="candidate">Candidato:</label>
+                <select name="candidate" id="candidate" required></select>
+            </div>
+            <br><br>
+
+            <div class="form-group-checkbox">
+                <label>Como se enter&oacute; de Nosotros:</label>
+                <div class="form-checkbox">
+                    <label for="web">Web <input type="checkbox" name="with_us[]" value="Web" id="web"></label>
+                </div>
+                <div class="form-checkbox">
+                    <label for="redes-sociales">Redes Sociales <input type="checkbox" name="with_us[]" value="redes-sociales" id="redes-sociales"></label>
+                </div>
+                <div class="form-checkbox">
+                    <label for="amigo">Amigo <input type="checkbox" name="with_us[]" value="amigo" id="amigo"></label>
+                </div>
+            </div>
+            <br><br>
+
+            <input type="submit" value="Enviar">
+        </form>
+    </custom-form>
+    
+</body>
+</html>
